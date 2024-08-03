@@ -1,0 +1,44 @@
+package com.food.ordering.model;
+
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.food.ordering.dto.RestaurantDto;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String fullName;
+
+    private String email;
+
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private USER_ROLE role;
+
+    // Ignore because I'll make other api for getting the orders
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "customer")
+    private List<Order> orders = new ArrayList<>();
+
+    @ElementCollection
+    private List<RestaurantDto> favorites = new ArrayList<>();
+
+    // If the user is deleted, delete the addresses
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Address> addresses = new ArrayList<>();
+}
