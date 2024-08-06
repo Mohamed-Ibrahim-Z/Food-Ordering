@@ -3,6 +3,7 @@ package com.food.ordering.services;
 import com.food.ordering.dto.RestaurantDto;
 import com.food.ordering.model.Restaurant;
 import com.food.ordering.model.User;
+import com.food.ordering.request.CreateRestaurantRequest;
 
 import java.util.List;
 

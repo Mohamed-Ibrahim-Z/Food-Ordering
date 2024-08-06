@@ -1,4 +1,4 @@
-package com.food.ordering.services;
+package com.food.ordering.request;
 
 import com.food.ordering.model.Address;
 import com.food.ordering.model.ContactInformation;

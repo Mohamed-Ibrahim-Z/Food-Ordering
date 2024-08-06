@@ -7,11 +7,14 @@ import com.food.ordering.model.User;
 import com.food.ordering.repository.AddressRepository;
 import com.food.ordering.repository.RestaurantRepository;
 import com.food.ordering.repository.UserRepository;
+import com.food.ordering.request.CreateRestaurantRequest;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RestaurantServiceImpl implements RestaurantService{
 
     private RestaurantRepository restaurantRepository;
@@ -20,6 +23,11 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     private UserRepository userRepository;
 
+    public RestaurantServiceImpl(RestaurantRepository restaurantRepository, AddressRepository addressRepository, UserRepository userRepository) {
+        this.restaurantRepository = restaurantRepository;
+        this.addressRepository = addressRepository;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Restaurant createRestaurantRequest(CreateRestaurantRequest restaurantRequest, User user) {
@@ -93,14 +101,21 @@ public class RestaurantServiceImpl implements RestaurantService{
         Restaurant restaurant = findRestaurantById(restaurantId);
         RestaurantDto dto = new RestaurantDto();
 
+
         dto.setTitle(restaurant.getName());
         dto.setDescription(restaurant.getDescription());
         dto.setImages(restaurant.getImages());
         dto.setId(restaurantId);
 
-        if(user.getFavorites().contains(dto)) user.getFavorites().remove(dto);
+        List<RestaurantDto> fav = user.getFavorites();
+        boolean isFav = false;
+        for(RestaurantDto dt : fav)
+            if (dt.getId().equals(restaurantId)) {
+                isFav = true;
+                break;
+            }
+        if(isFav) user.getFavorites().removeIf(res-> res.getId().equals(restaurantId));
         else user.getFavorites().add(dto);
-
         userRepository.save(user);
         return dto;
     }
