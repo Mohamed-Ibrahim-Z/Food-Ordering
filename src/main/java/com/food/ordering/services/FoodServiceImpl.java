@@ -5,11 +5,13 @@ import com.food.ordering.model.Food;
 import com.food.ordering.model.Restaurant;
 import com.food.ordering.repository.FoodRepository;
 import com.food.ordering.request.CreateFoodRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class FoodServiceImpl implements FoodService{
 
     private FoodRepository foodRepository;

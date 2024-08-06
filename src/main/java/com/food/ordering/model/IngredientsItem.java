@@ -25,4 +25,44 @@ public class IngredientsItem {
     private Restaurant restaurant;
 
     private boolean isStoke = true;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public IngredientsCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(IngredientsCategory category) {
+        this.category = category;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public boolean isStoke() {
+        return isStoke;
+    }
+
+    public void setStoke(boolean stoke) {
+        isStoke = stoke;
+    }
 }
