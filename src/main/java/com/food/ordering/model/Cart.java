@@ -49,11 +49,11 @@ public class Cart {
         this.total = total;
     }
 
-    public List<CartItem> getItem() {
+    public List<CartItem> getItems() {
         return item;
     }
 
-    public void setItem(List<CartItem> item) {
+    public void setItems(List<CartItem> item) {
         this.item = item;
     }
 }
