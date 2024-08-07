@@ -34,7 +34,7 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurants, HttpStatus.OK);
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Restaurant>> getAllRestaurants(
             @RequestHeader("Authorization") String jwt
     ) throws Exception{

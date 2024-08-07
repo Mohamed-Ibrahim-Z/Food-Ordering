@@ -8,9 +8,11 @@ import com.food.ordering.repository.CartItemRepository;
 import com.food.ordering.repository.CartRepository;
 import com.food.ordering.repository.FoodRepository;
 import com.food.ordering.request.AddCartItemRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CartServiceImpl implements CartService{
 
     private CartRepository cartRepository;
@@ -99,14 +101,16 @@ public class CartServiceImpl implements CartService{
     }
 
     @Override
-    public Cart findCartByUserId(String jwt) throws Exception {
-        User user = userService.findUserByToken(jwt);
-        return cartRepository.findByCustomerId(user.getId());
+    public Cart findCartByUserId(Long userId) throws Exception {
+//        User user = userService.findUserByToken(jwt);
+        Cart cart = cartRepository.findByCustomerId(userId);
+        cart.setTotal(calculateCartTotals(cart));
+        return cart;
     }
 
     @Override
-    public Cart clearCart(String jwt) throws Exception {
-        Cart cart=findCartByUserId(jwt);
+    public Cart clearCart(Long userId) throws Exception {
+        Cart cart=findCartByUserId(userId);
         cart.getItems().clear();
         return cartRepository.save(cart);
     }
